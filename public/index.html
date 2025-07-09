@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnMap AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK -->
+    <script src="/__/firebase/10.11.0/firebase-app-compat.js" defer></script>
+    <script src="/__/firebase/10.11.0/firebase-functions-compat.js" defer></script>
+    <script src="/__/firebase/init.js" defer></script>
+    <script type="module" src="script.js" defer></script>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between whitespace-nowrap border-b border-gray-200 px-10 py-4">
+        <div class="flex items-center gap-3 text-gray-800">
+            <svg class="h-8 w-8 text-[var(--primary-color)]" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path></svg>
+            <h2 class="text-xl font-bold tracking-tight text-gray-900">LearnMap.ai</h2>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8">
+
+        <!-- Section 1: Goal Input (Default View) -->
+        <section id="goal-input-section" class="text-center">
+            <h1 class="text-4xl font-bold tracking-tighter text-gray-800 sm:text-5xl md:text-6xl">무엇을 배우고 싶으신가요?</h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
+                AI가 학습 목표에 맞는 로드맵을 생성해 드립니다.
+            </p>
+            <form id="roadmap-form" class="mt-8 w-full max-w-xl mx-auto">
+                <div class="relative flex items-center">
+                    <input id="learning-goal-input" class="form-input h-16 w-full rounded-full border-gray-300 bg-white py-3 pl-6 pr-40 text-lg text-gray-900 placeholder-gray-500 shadow-lg focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" placeholder="예: '파이썬 기초', '영상 편집 입문'" type="search" />
+                    <button id="generate-roadmap-btn" class="absolute right-2.5 flex h-12 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[var(--primary-color)] px-6 text-base font-semibold text-white shadow-md transition-transform duration-200 hover:scale-105 hover:bg-opacity-90" type="submit">
+                        <span class="truncate">로드맵 생성</span>
+                    </button>
+                </div>
+            </form>
+            <div id="error-message" class="hidden mt-4 text-red-600 font-semibold"></div>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div id="loading-indicator" class="hidden text-center py-16">
+            <p class="text-lg text-gray-700">AI가 열심히 로드맵을 그리고 있습니다. 잠시만 기다려주세요...</p>
+            <!-- You can add a spinner animation here -->
+        </div>
+
+        <!-- Section 2: Roadmap Visualization (Hidden by default) -->
+        <section id="roadmap-section" class="hidden">
+            <div class="text-center mb-8">
+                <h2 id="roadmap-title" class="text-4xl font-bold tracking-tight text-slate-900 inline-block align-middle"></h2>
+                <button id="new-roadmap-btn" class="ml-4 px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-full hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 inline-block align-middle">
+                    <i class="fa-solid fa-arrow-left"></i> 다시 만들기
+                </button>
+            </div>
+            <div class="flex gap-8">
+                <!-- Mindmap Area -->
+                <div id="mindmap-container" class="flex-grow">
+                    <div id="mindmap-canvas">
+                        <!-- Nodes and lines will be injected by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Learning Resources Sidebar -->
+                <aside id="learning-resources-sidebar" class="w-1/3 bg-white p-6 rounded-lg shadow-md hidden">
+                    <h3 id="resource-title" class="text-2xl font-bold text-slate-900 mb-6"></h3>
+                    <div id="resources-list" class="space-y-4">
+                        <!-- Resource items will be injected by JavaScript -->
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
