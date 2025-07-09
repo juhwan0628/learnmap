@@ -31,6 +31,7 @@
             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
                 AI가 학습 목표에 맞는 로드맵을 생성해 드립니다.
             </p>
+            
             <form id="roadmap-form" class="mt-8 w-full max-w-xl mx-auto">
                 <div class="relative flex items-center">
                     <input id="learning-goal-input" class="form-input h-16 w-full rounded-full border-gray-300 bg-white py-3 pl-6 pr-40 text-lg text-gray-900 placeholder-gray-500 shadow-lg focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]" placeholder="예: '파이썬 기초', '영상 편집 입문'" type="search" />
@@ -40,6 +41,23 @@
                 </div>
             </form>
             <div id="error-message" class="hidden mt-4 text-red-600 font-semibold"></div>
+
+            <!-- Popular Learning Goals Section -->
+            <div class="mt-12 text-center">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">인기 학습 목표</h2>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button class="popular-goal-btn px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition-colors duration-200">파이썬 기초</button>
+                    <button class="popular-goal-btn px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition-colors duration-200">영상 편집 입문</button>
+                    <button class="popular-goal-btn px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition-colors duration-200">웹 개발 기초</button>
+                    <button class="popular-goal-btn px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition-colors duration-200">데이터 과학</button>
+                </div>
+            </div>
+            <!-- New illustration below popular learning goals -->
+            <div class="mt-12 flex justify-center">
+                <svg class="h-32 w-32 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.733 8.733 0 0012 3c-2.92 0-5.657 1.192-7.774 3.268A9.733 9.733 0 002.25 12c0 2.92 1.192 5.657 3.268 7.774A9.733 9.733 0 0012 21c2.92 0 5.657-1.192 7.774-3.268A9.733 9.733 0 0021.75 12c0-2.92-1.192-5.657-3.268-7.774A9.733 9.733 0 0012 3.042zM12 6a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0V6.75A.75.75 0 0112 6zm0 12a.75.75 0 100-1.5.75.75 0 000 1.5z" />
+                </svg>
+            </div>
         </section>
 
         <!-- Loading Indicator -->
@@ -75,6 +93,10 @@
         </section>
 
     </main>
+
+    <footer class="bg-gray-100 text-gray-600 text-center py-4 mt-12">
+        <p>&copy; 2025 LearnMap.ai. All rights reserved.</p>
+    </footer>
 
     <script type="module" src="script.js"></script>
 </body>

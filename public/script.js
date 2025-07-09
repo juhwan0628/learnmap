@@ -26,6 +26,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const newRoadmapBtn = document.getElementById('new-roadmap-btn');
     const errorMessage = document.getElementById('error-message');
 
+    // --- Popular Learning Goals Button Logic ---
+    const popularGoalButtons = document.querySelectorAll('.popular-goal-btn');
+    const learningGoalInput = document.getElementById('learning-goal-input'); // Get the input element
+
+    popularGoalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            learningGoalInput.value = button.textContent; // Set input value
+            roadmapForm.dispatchEvent(new Event('submit')); // Trigger form submission
+        });
+    });
+
     // --- Panning Logic ---
     let isDragging = false;
     let startX, startY;
