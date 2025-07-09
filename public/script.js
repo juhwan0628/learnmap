@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             displayRoadmap(result.data);
         } catch (error) {
             console.error("Error generating roadmap:", error);
-            showError(`로드맵 생성에 실패했습니다: ${error.message}`);
+            const userMessage = error.message || '알 수 없는 오류가 발생했습니다.';
+            showError(`로드맵 생성에 실패했습니다: ${userMessage}`);
             goalInputSection.classList.remove('hidden');
         } finally {
             loadingIndicator.classList.add('hidden');
@@ -148,7 +149,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             displayResources(result.data.resources);
         } catch (error) {
             console.error("Error fetching resources:", error);
-            resourcesList.innerHTML = `<p>자료를 불러오는 데 실패했습니다: ${error.message}</p>`;
+            const userMessage = error.message || '알 수 없는 오류가 발생했습니다.';
+            resourcesList.innerHTML = `<p>자료를 불러오는 데 실패했습니다: ${userMessage}</p>`;
         }
     }
 
@@ -251,7 +253,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const subNodes = childrenOf(node.id);
             if (!subNodes.length) return;
             
-            const subRadius = mainRadius + 120;
+            const subRadius = mainRadius + 180;
             const subAngleSpread = angleStep * 0.8;
             const subAngleStep = subNodes.length > 1 ? subAngleSpread / (subNodes.length - 1) : 0;
             const startAngle = angle - (subAngleSpread / 2);
